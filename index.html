@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Humair | Data Analyst</title>
+  <title>Muhammad Humair | Data Analyst Portfolio</title>
 
   <style>
     * {
@@ -44,6 +44,11 @@
     header h2 {
       color: #60a5fa;
       letter-spacing: 0.5px;
+      font-size: 24px;
+    }
+
+    header h2 span {
+      color: #facc15;
     }
 
     nav a {
@@ -67,6 +72,7 @@
       gap: 50px;
       background:
         radial-gradient(circle at top right, rgba(37, 99, 235, 0.35), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(250, 204, 21, 0.12), transparent 35%),
         linear-gradient(135deg, #0b1120, #111827);
     }
 
@@ -143,9 +149,17 @@
 
     .section-title {
       font-size: 36px;
-      margin-bottom: 35px;
+      margin-bottom: 18px;
       color: #60a5fa;
       text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #d1d5db;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      font-size: 16px;
     }
 
     .about {
@@ -169,7 +183,7 @@
 
     .card {
       background: linear-gradient(145deg, #111827, #0b1120);
-      padding: 25px;
+      padding: 28px;
       border-radius: 18px;
       border: 1px solid #1f2937;
       transition: 0.3s ease;
@@ -194,33 +208,41 @@
       font-size: 15px;
     }
 
-    .tag {
-      color: #60a5fa;
-      font-size: 14px;
-      margin-bottom: 10px;
-      display: block;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .project-card {
+      min-height: 245px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
     }
 
-    .project-img {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 14px;
-      margin-bottom: 18px;
-      border: 1px solid #1f2937;
-      background: #0b1120;
+    .project-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: rgba(96, 165, 250, 0.12);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      margin-bottom: 5px;
+    }
+
+    .project-card h3 {
+      font-size: 24px;
+      margin-bottom: 0;
     }
 
     .project-link {
       display: inline-block;
-      margin-top: 22px;
+      margin-top: 8px;
       color: #facc15;
       font-size: 14px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       transition: 0.3s ease;
     }
@@ -276,9 +298,15 @@
         gap: 15px;
       }
 
+      nav {
+        text-align: center;
+      }
+
       nav a {
         margin: 0 8px;
         font-size: 14px;
+        display: inline-block;
+        margin-bottom: 8px;
       }
 
       .hero {
@@ -309,7 +337,7 @@
 <body>
 
   <header>
-    <h2>Muhammad Humair</h2>
+    <h2>Muhammad Humair<span>.</span></h2>
     <nav>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -378,79 +406,61 @@
   <section id="projects">
     <h2 class="section-title">Featured Projects</h2>
 
+    <p class="section-subtitle">
+      Select a project category to view related work on GitHub. Project details, screenshots, tools, and insights are available inside each project README.
+    </p>
+
     <div class="projects-grid">
 
-      <div class="card">
-        <img 
-          class="project-img" 
-          src="https://raw.githubusercontent.com/humairdata7/PowerBI-Sales-Dashboard/main/Power%20BI%20Dashboard.jpg" 
-          alt="Power BI E-commerce Sales Dashboard Screenshot"
-        >
-
-        <span class="tag">Power BI</span>
-        <h3>Power BI E-commerce Sales Dashboard</h3>
-        <p>
-          Built an interactive Power BI dashboard to analyze total sales,
-          order status, payment methods, product categories, and regional performance.
-        </p>
+      <div class="card project-card">
+        <div class="project-icon">📊</div>
+        <h3>Power BI Projects</h3>
 
         <a 
-          href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" 
+          href="https://github.com/humairdata7?tab=repositories&q=PowerBI" 
           target="_blank" 
           rel="noopener noreferrer" 
           class="project-link">
-          View Project →
+          View Projects →
         </a>
       </div>
 
-      <div class="card">
-        <span class="tag">Excel</span>
-        <h3>Bike Sales Dashboard</h3>
-        <p>
-          Created an Excel dashboard using Pivot Tables, charts, and slicers
-          to analyze customer behavior and purchase trends.
-        </p>
+      <div class="card project-card">
+        <div class="project-icon">📈</div>
+        <h3>Excel Projects</h3>
 
         <a 
-          href="https://github.com/humairdata7" 
+          href="https://github.com/humairdata7?tab=repositories&q=Excel" 
           target="_blank" 
           rel="noopener noreferrer" 
           class="project-link">
-          View Project →
+          View Projects →
         </a>
       </div>
 
-      <div class="card">
-        <span class="tag">MySQL</span>
-        <h3>Retail Sales Analysis</h3>
-        <p>
-          Used SQL queries to analyze revenue trends, top-selling products,
-          monthly sales performance, and customer purchasing behavior.
-        </p>
+      <div class="card project-card">
+        <div class="project-icon">🗄️</div>
+        <h3>SQL Projects</h3>
 
         <a 
-          href="https://github.com/humairdata7" 
+          href="https://github.com/humairdata7?tab=repositories&q=SQL" 
           target="_blank" 
           rel="noopener noreferrer" 
           class="project-link">
-          View Project →
+          View Projects →
         </a>
       </div>
 
-      <div class="card">
-        <span class="tag">Final Year Project</span>
-        <h3>E-Health Care System</h3>
-        <p>
-          Developed a healthcare management system with patient records,
-          appointments, lab reports, and AI chatbot support.
-        </p>
+      <div class="card project-card">
+        <div class="project-icon">🐍</div>
+        <h3>Python Projects</h3>
 
         <a 
-          href="https://github.com/humairdata7" 
+          href="https://github.com/humairdata7?tab=repositories&q=Python" 
           target="_blank" 
           rel="noopener noreferrer" 
           class="project-link">
-          View Project →
+          View Projects →
         </a>
       </div>
 
