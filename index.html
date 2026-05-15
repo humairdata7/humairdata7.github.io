@@ -13,6 +13,10 @@
       font-family: Arial, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background: #0b1120;
       color: #ffffff;
@@ -34,16 +38,20 @@
       top: 0;
       z-index: 10;
       border-bottom: 1px solid #1f2937;
+      backdrop-filter: blur(10px);
     }
 
     header h2 {
       color: #60a5fa;
+      letter-spacing: 0.5px;
     }
 
     nav a {
       margin-left: 25px;
       color: #d1d5db;
       font-size: 15px;
+      font-weight: 600;
+      transition: 0.3s ease;
     }
 
     nav a:hover {
@@ -95,6 +103,7 @@
       padding: 13px 24px;
       border-radius: 30px;
       font-weight: bold;
+      transition: 0.3s ease;
     }
 
     .btn-primary {
@@ -102,9 +111,21 @@
       color: white;
     }
 
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+    }
+
     .btn-secondary {
       border: 1px solid #60a5fa;
       color: #60a5fa;
+    }
+
+    .btn-secondary:hover {
+      background: #60a5fa;
+      color: #0b1120;
+      transform: translateY(-3px);
     }
 
     .hero-img img {
@@ -142,27 +163,30 @@
     .skills-grid,
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
 
     .card {
-      background: #111827;
+      background: linear-gradient(145deg, #111827, #0b1120);
       padding: 25px;
       border-radius: 18px;
       border: 1px solid #1f2937;
-      transition: 0.3s;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     .card:hover {
       transform: translateY(-6px);
       border-color: #60a5fa;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
     }
 
     .card h3 {
       margin-bottom: 12px;
       color: #ffffff;
+      font-size: 21px;
     }
 
     .card p {
@@ -176,6 +200,34 @@
       margin-bottom: 10px;
       display: block;
       font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      border: 1px solid #1f2937;
+      background: #0b1120;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 22px;
+      color: #facc15;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.3s ease;
+    }
+
+    .project-link:hover {
+      color: #ffffff;
+      transform: translateX(6px);
     }
 
     .education {
@@ -190,6 +242,15 @@
       padding: 30px;
       border-radius: 18px;
       border: 1px solid #1f2937;
+    }
+
+    .education-box h3 {
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .education-box p {
+      color: #d1d5db;
     }
 
     .contact {
@@ -217,6 +278,7 @@
 
       nav a {
         margin: 0 8px;
+        font-size: 14px;
       }
 
       .hero {
@@ -226,6 +288,19 @@
 
       .hero-text h1 {
         font-size: 42px;
+      }
+
+      .hero-text h3 {
+        font-size: 20px;
+      }
+
+      .hero-img img {
+        width: 240px;
+        height: 240px;
+      }
+
+      section {
+        padding: 65px 6%;
       }
     }
   </style>
@@ -304,13 +379,28 @@
     <h2 class="section-title">Featured Projects</h2>
 
     <div class="projects-grid">
+
       <div class="card">
+        <img 
+          class="project-img" 
+          src="https://raw.githubusercontent.com/humairdata7/PowerBI-Sales-Dashboard/main/Power%20BI%20Dashboard.jpg" 
+          alt="Power BI E-commerce Sales Dashboard Screenshot"
+        >
+
         <span class="tag">Power BI</span>
-        <h3>Amazon Sales Dashboard</h3>
+        <h3>Power BI E-commerce Sales Dashboard</h3>
         <p>
           Built an interactive Power BI dashboard to analyze total sales,
-          top categories, order status, payment methods, and regional performance.
+          order status, payment methods, product categories, and regional performance.
         </p>
+
+        <a 
+          href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="project-link">
+          View Project →
+        </a>
       </div>
 
       <div class="card">
@@ -320,6 +410,14 @@
           Created an Excel dashboard using Pivot Tables, charts, and slicers
           to analyze customer behavior and purchase trends.
         </p>
+
+        <a 
+          href="https://github.com/humairdata7" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="project-link">
+          View Project →
+        </a>
       </div>
 
       <div class="card">
@@ -329,6 +427,14 @@
           Used SQL queries to analyze revenue trends, top-selling products,
           monthly sales performance, and customer purchasing behavior.
         </p>
+
+        <a 
+          href="https://github.com/humairdata7" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="project-link">
+          View Project →
+        </a>
       </div>
 
       <div class="card">
@@ -338,7 +444,16 @@
           Developed a healthcare management system with patient records,
           appointments, lab reports, and AI chatbot support.
         </p>
+
+        <a 
+          href="https://github.com/humairdata7" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="project-link">
+          View Project →
+        </a>
       </div>
+
     </div>
   </section>
 
@@ -358,8 +473,8 @@
 
     <div class="buttons">
       <a href="mailto:humairrajput2400@gmail.com" class="btn-primary">Email Me</a>
-      <a href="https://github.com/humairdata7" class="btn-secondary">GitHub</a>
-      <a href="https://www.linkedin.com/in/humair12/" class="btn-secondary">LinkedIn</a>
+      <a href="https://github.com/humairdata7" target="_blank" rel="noopener noreferrer" class="btn-secondary">GitHub</a>
+      <a href="https://www.linkedin.com/in/humair12/" target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
     </div>
   </section>
 
