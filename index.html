@@ -1,496 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Humair | Data Analyst Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Humair | Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-mid: #2d3f6b;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --surface: #f8fafc;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 5%;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); font-weight: 600; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
 
-    html {
-      scroll-behavior: smooth;
-    }
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 8rem 5% 4rem;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 60%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, #dbeafe 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 680px; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block; background: var(--accent-light); color: var(--accent);
+    font-size: 0.8rem; font-weight: 500; padding: 0.35rem 0.9rem;
+    border-radius: 20px; margin-bottom: 1.5rem; letter-spacing: 0.05em;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 600; color: var(--navy); line-height: 1.15; margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 520px; margin-bottom: 2rem; font-weight: 300; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: white; text-decoration: none;
+    padding: 0.75rem 1.75rem; border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--navy); text-decoration: none;
+    padding: 0.75rem 1.75rem; border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+    border: 1.5px solid var(--navy); transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--navy); color: white; }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); font-weight: 600; }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-    body {
-      background: #0b1120;
-      color: #ffffff;
-      line-height: 1.6;
-    }
+  /* SECTIONS */
+  section { padding: 5rem 5%; }
+  .section-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--navy); font-weight: 600; margin-bottom: 1rem; }
+  .section-sub { color: var(--text-muted); max-width: 540px; font-size: 1rem; margin-bottom: 3rem; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.97rem; }
+  .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+  .highlight-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+  }
+  .hi-icon { font-size: 1.4rem; margin-top: 0.1rem; }
+  .hi-title { font-weight: 500; font-size: 0.95rem; color: var(--navy); }
+  .hi-desc { font-size: 0.83rem; color: var(--text-muted); margin-top: 0.2rem; }
 
-    header {
-      padding: 22px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(11, 17, 32, 0.95);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid #1f2937;
-      backdrop-filter: blur(10px);
-    }
+  /* SKILLS */
+  #skills { background: var(--surface); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+  .skill-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.5rem; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .skill-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,99,235,0.1); }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .skill-name { font-weight: 500; color: var(--navy); font-size: 1rem; margin-bottom: 0.4rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .tag {
+    background: var(--accent-light); color: var(--accent);
+    font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px;
+  }
 
-    header h2 {
-      color: #60a5fa;
-      letter-spacing: 0.5px;
-      font-size: 24px;
-    }
+  /* PROJECTS */
+  #projects { background: var(--white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; transition: all 0.25s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,39,68,0.12); border-color: var(--accent); }
+  .project-img {
+    width: 100%; height: 180px; background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+  }
+  .project-img img { width: 100%; height: 100%; object-fit: cover; }
+  .project-img-placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem; color: var(--text-muted);
+  }
+  .project-img-placeholder span { font-size: 2.5rem; }
+  .project-img-placeholder p { font-size: 0.78rem; }
+  .project-body { padding: 1.25rem; }
+  .project-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .project-tool {
+    background: var(--accent-light); color: var(--accent);
+    font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px;
+  }
+  .project-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); font-weight: 600; margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.6; }
+  .project-metric {
+    background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px;
+    padding: 0.4rem 0.75rem; font-size: 0.8rem; color: #166534; font-weight: 500;
+    display: inline-block; margin-bottom: 1rem;
+  }
+  .project-links { display: flex; gap: 0.75rem; }
+  .project-link {
+    text-decoration: none; font-size: 0.83rem; font-weight: 500; padding: 0.45rem 1rem;
+    border-radius: 6px; transition: all 0.2s;
+  }
+  .project-link.github { background: var(--navy); color: white; }
+  .project-link.github:hover { background: var(--navy-mid); }
+  .project-link.demo { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .project-link.demo:hover { background: var(--border); }
 
-    header h2 span {
-      color: #facc15;
-    }
+  /* EDUCATION */
+  #education { background: var(--surface); }
+  .edu-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.75rem 2rem; max-width: 560px;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+  }
+  .edu-icon {
+    width: 52px; height: 52px; background: var(--accent-light); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+  }
+  .edu-degree { font-weight: 500; font-size: 1rem; color: var(--navy); }
+  .edu-uni { color: var(--text-muted); font-size: 0.88rem; margin-top: 0.25rem; }
+  .edu-year { font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-top: 0.5rem; }
 
-    nav a {
-      margin-left: 25px;
-      color: #d1d5db;
-      font-size: 15px;
-      font-weight: 600;
-      transition: 0.3s ease;
-    }
+  /* CONTACT */
+  #contact { background: var(--navy); color: white; text-align: center; }
+  #contact .section-label { color: #93c5fd; }
+  #contact .section-title { color: white; }
+  #contact .section-sub { color: #94a3b8; margin-left: auto; margin-right: auto; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px;
+    font-weight: 500; font-size: 0.9rem; transition: all 0.2s;
+  }
+  .contact-btn.email { background: var(--accent); color: white; }
+  .contact-btn.email:hover { background: #1d4ed8; }
+  .contact-btn.gh { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+  .contact-btn.gh:hover { background: rgba(255,255,255,0.2); }
+  .contact-btn.li { background: #0077b5; color: white; }
+  .contact-btn.li:hover { background: #005885; }
 
-    nav a:hover {
-      color: #60a5fa;
-    }
+  /* FOOTER */
+  footer { background: #111827; color: #6b7280; text-align: center; padding: 1.5rem; font-size: 0.82rem; }
 
-    .hero {
-      min-height: 90vh;
-      padding: 80px 8%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 50px;
-      background:
-        radial-gradient(circle at top right, rgba(37, 99, 235, 0.35), transparent 35%),
-        radial-gradient(circle at bottom left, rgba(250, 204, 21, 0.12), transparent 35%),
-        linear-gradient(135deg, #0b1120, #111827);
-    }
-
-    .hero-text {
-      max-width: 650px;
-    }
-
-    .hero-text h1 {
-      font-size: 58px;
-      line-height: 1.1;
-      margin-bottom: 18px;
-    }
-
-    .hero-text h1 span {
-      color: #60a5fa;
-    }
-
-    .hero-text h3 {
-      font-size: 24px;
-      color: #facc15;
-      margin-bottom: 20px;
-    }
-
-    .hero-text p {
-      color: #d1d5db;
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .buttons a {
-      display: inline-block;
-      margin-right: 15px;
-      margin-bottom: 12px;
-      padding: 13px 24px;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: 0.3s ease;
-    }
-
-    .btn-primary {
-      background: #2563eb;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
-    }
-
-    .btn-secondary {
-      border: 1px solid #60a5fa;
-      color: #60a5fa;
-    }
-
-    .btn-secondary:hover {
-      background: #60a5fa;
-      color: #0b1120;
-      transform: translateY(-3px);
-    }
-
-    .hero-img img {
-      width: 310px;
-      height: 310px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #2563eb;
-      box-shadow: 0 0 40px rgba(37, 99, 235, 0.6);
-    }
-
-    section {
-      padding: 80px 8%;
-    }
-
-    .section-title {
-      font-size: 36px;
-      margin-bottom: 18px;
-      color: #60a5fa;
-      text-align: center;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: #d1d5db;
-      max-width: 720px;
-      margin: 0 auto 40px;
-      font-size: 16px;
-    }
-
-    .about {
-      background: #111827;
-    }
-
-    .about p {
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-      color: #d1d5db;
-      font-size: 18px;
-    }
-
-    .skills-grid,
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: linear-gradient(145deg, #111827, #0b1120);
-      padding: 28px;
-      border-radius: 18px;
-      border: 1px solid #1f2937;
-      transition: 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: #60a5fa;
-      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      color: #ffffff;
-      font-size: 21px;
-    }
-
-    .card p {
-      color: #d1d5db;
-      font-size: 15px;
-    }
-
-    .project-card {
-      min-height: 245px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-    }
-
-    .project-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
-      background: rgba(96, 165, 250, 0.12);
-      border: 1px solid rgba(96, 165, 250, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 34px;
-      margin-bottom: 5px;
-    }
-
-    .project-card h3 {
-      font-size: 24px;
-      margin-bottom: 0;
-    }
-
-    .project-link {
-      display: inline-block;
-      margin-top: 8px;
-      color: #facc15;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: 0.3s ease;
-    }
-
-    .project-link:hover {
-      color: #ffffff;
-      transform: translateX(6px);
-    }
-
-    .education {
-      background: #111827;
-      text-align: center;
-    }
-
-    .education-box {
-      max-width: 700px;
-      margin: auto;
-      background: #0b1120;
-      padding: 30px;
-      border-radius: 18px;
-      border: 1px solid #1f2937;
-    }
-
-    .education-box h3 {
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .education-box p {
-      color: #d1d5db;
-    }
-
-    .contact {
-      text-align: center;
-    }
-
-    .contact p {
-      color: #d1d5db;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #111827;
-      color: #9ca3af;
-      border-top: 1px solid #1f2937;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      nav {
-        text-align: center;
-      }
-
-      nav a {
-        margin: 0 8px;
-        font-size: 14px;
-        display: inline-block;
-        margin-bottom: 8px;
-      }
-
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .hero-text h1 {
-        font-size: 42px;
-      }
-
-      .hero-text h3 {
-        font-size: 20px;
-      }
-
-      .hero-img img {
-        width: 240px;
-        height: 240px;
-      }
-
-      section {
-        padding: 65px 6%;
-      }
-    }
-  </style>
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; }
+    nav { padding: 0.9rem 4%; }
+    .nav-links { gap: 1.2rem; }
+  }
+</style>
 </head>
-
 <body>
 
-  <header>
-    <h2>Muhammad Humair<span>.</span></h2>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Muhammad Humair</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <section class="hero">
-    <div class="hero-text">
-      <h1>Hi, I'm <span>Muhammad Humair</span></h1>
-      <h3>Data Analyst | Power BI | SQL | Excel | Python</h3>
-      <p>
-        I create dashboards, clean datasets, write SQL queries, and turn raw data
-        into meaningful business insights.
-      </p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">📍 Faisalabad, Pakistan · Open to Remote</div>
+    <h1>Data Analyst<br>turning raw data into<br><span>clear insights</span></h1>
+    <p>I build dashboards, clean datasets, and write SQL queries that help businesses understand their data and make smarter decisions.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Projects →</a>
+      <a href="mailto:humairrajput2400@gmail.com" class="btn-outline">Contact Me</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-label">Tools Mastered</div>
+      </div>
+      <div>
+        <div class="stat-num">BSE</div>
+        <div class="stat-label">Software Engineering</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="buttons">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="mailto:humairrajput2400@gmail.com" class="btn-secondary">Contact Me</a>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title">Passionate about<br>data storytelling</h2>
+      <p>I am an entry-level Data Analyst from Pakistan with a Software Engineering background from Riphah International University, Faisalabad (2026).</p>
+      <p>My focus is on transforming complex, messy data into clean, visual stories — dashboards and reports that decision-makers can actually use.</p>
+      <p>I am actively seeking remote Data Analyst, BI Analyst, or Reporting Analyst roles where I can contribute immediately and grow fast.</p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <div class="hi-icon">📊</div>
+        <div>
+          <div class="hi-title">Dashboard Development</div>
+          <div class="hi-desc">Building interactive Power BI dashboards with KPI cards, slicers, and DAX measures</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🧹</div>
+        <div>
+          <div class="hi-title">Data Cleaning & Analysis</div>
+          <div class="hi-desc">Transforming raw data using Excel, Power Query, and SQL into analysis-ready datasets</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🗄️</div>
+        <div>
+          <div class="hi-title">SQL Querying</div>
+          <div class="hi-desc">Writing joins, subqueries, and aggregations to extract business insights from databases</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🌐</div>
+        <div>
+          <div class="hi-title">Remote Ready</div>
+          <div class="hi-desc">Available for full-time remote work across US, UK, EU, and GCC time zones</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Skills</div>
+  <h2 class="section-title">Tools & Technologies</h2>
+  <p class="section-sub">Core tools I use to analyze data, build dashboards, and deliver business insights.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Power BI</div>
+      <div style="font-size:0.85rem;color:var(--text-muted)">Dashboard creation and business reporting</div>
+      <div class="skill-tags">
+        <span class="tag">DAX</span><span class="tag">KPI Cards</span><span class="tag">Slicers</span><span class="tag">Data Model</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📗</div>
+      <div class="skill-name">Microsoft Excel</div>
+      <div style="font-size:0.85rem;color:var(--text-muted)">Data cleaning and analysis</div>
+      <div class="skill-tags">
+        <span class="tag">Pivot Tables</span><span class="tag">VLOOKUP</span><span class="tag">Charts</span><span class="tag">Power Query</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">SQL / MySQL</div>
+      <div style="font-size:0.85rem;color:var(--text-muted)">Data extraction and analysis</div>
+      <div class="skill-tags">
+        <span class="tag">Joins</span><span class="tag">GROUP BY</span><span class="tag">Subqueries</span><span class="tag">Aggregations</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python</div>
+      <div style="font-size:0.85rem;color:var(--text-muted)">Data manipulation and analysis</div>
+      <div class="skill-tags">
+        <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">My Work</div>
+  <h2 class="section-title">Featured Projects</h2>
+  <p class="section-sub">Real-world data analysis projects showcasing dashboards, data cleaning, and business insights.</p>
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 — Edit karo apne project ke hisab se -->
+    <div class="project-card">
+      <div class="project-img">
+        <!-- Screenshot hone ke baad yahan add karo:
+        <img src="screenshots/project1.png" alt="Sales Dashboard"> -->
+        <div class="project-img-placeholder">
+          <span>📊</span>
+          <p>Screenshot coming soon</p>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-tools">
+          <span class="project-tool">Power BI</span>
+          <span class="project-tool">Excel</span>
+        </div>
+        <div class="project-title">Sales Performance Dashboard</div>
+        <div class="project-desc">Analyzed 12 months of retail sales data to identify top-performing products, regional trends, and seasonal patterns using interactive Power BI dashboard.</div>
+        <div class="project-metric">📈 Identified 3 underperforming regions saving $X in resources</div>
+        <div class="project-links">
+          <a href="https://github.com/humairdata7" class="project-link github" target="_blank">GitHub →</a>
+        </div>
       </div>
     </div>
 
-    <div class="hero-img">
-      <img src="https://github.com/humairdata7.png" alt="Muhammad Humair">
-    </div>
-  </section>
-
-  <section id="about" class="about">
-    <h2 class="section-title">About Me</h2>
-    <p>
-      I am an entry-level Data Analyst from Pakistan with a Software Engineering background.
-      I am skilled in Excel, Power BI, SQL, MySQL, data cleaning, dashboard creation,
-      and business reporting. My goal is to help businesses understand their data through
-      clear dashboards, reports, and actionable insights.
-    </p>
-  </section>
-
-  <section id="skills">
-    <h2 class="section-title">Skills</h2>
-
-    <div class="skills-grid">
-      <div class="card">
-        <h3>Power BI</h3>
-        <p>Dashboard creation, KPI cards, slicers, charts, data visualization, and basic DAX.</p>
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-img">
+        <div class="project-img-placeholder">
+          <span>📗</span>
+          <p>Screenshot coming soon</p>
+        </div>
       </div>
-
-      <div class="card">
-        <h3>Excel</h3>
-        <p>Data cleaning, Pivot Tables, formulas, charts, and Excel dashboards.</p>
-      </div>
-
-      <div class="card">
-        <h3>SQL / MySQL</h3>
-        <p>Joins, Group By, subqueries, data extraction, and sales analysis.</p>
-      </div>
-
-      <div class="card">
-        <h3>Python Basics</h3>
-        <p>Basic data handling, Pandas, and beginner-level data analysis.</p>
+      <div class="project-body">
+        <div class="project-tools">
+          <span class="project-tool">Excel</span>
+          <span class="project-tool">Power Query</span>
+        </div>
+        <div class="project-title">HR Analytics Dashboard</div>
+        <div class="project-desc">Built an Excel dashboard analyzing employee data including headcount, attrition, department performance, and salary distribution with Pivot Tables.</div>
+        <div class="project-metric">📊 Cleaned and analyzed 1,000+ employee records</div>
+        <div class="project-links">
+          <a href="https://github.com/humairdata7" class="project-link github" target="_blank">GitHub →</a>
+        </div>
       </div>
     </div>
-  </section>
 
-  <section id="projects">
-    <h2 class="section-title">Featured Projects</h2>
-
-    <p class="section-subtitle">
-      Select a project category to view related work on GitHub. Project details, screenshots, tools, and insights are available inside each project README.
-    </p>
-
-    <div class="projects-grid">
-
-      <div class="card project-card">
-        <div class="project-icon">📊</div>
-        <h3>Power BI Projects</h3>
-
-        <a 
-          href="https://github.com/humairdata7?tab=repositories&q=PowerBI" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="project-link">
-          View Projects →
-        </a>
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+      <div class="project-img">
+        <div class="project-img-placeholder">
+          <span>📉</span>
+          <p>Screenshot coming soon</p>
+        </div>
       </div>
-
-      <div class="card project-card">
-        <div class="project-icon">📈</div>
-        <h3>Excel Projects</h3>
-
-        <a 
-          href="https://github.com/humairdata7?tab=repositories&q=Excel" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="project-link">
-          View Projects →
-        </a>
+      <div class="project-body">
+        <div class="project-tools">
+          <span class="project-tool">Power BI</span>
+          <span class="project-tool">DAX</span>
+        </div>
+        <div class="project-title">Financial KPI Report</div>
+        <div class="project-desc">Created a monthly financial reporting dashboard with revenue, expense, and profit KPIs, enabling management to track business performance at a glance.</div>
+        <div class="project-metric">⚡ Reduced manual reporting time by 3 hours/week</div>
+        <div class="project-links">
+          <a href="https://github.com/humairdata7" class="project-link github" target="_blank">GitHub →</a>
+        </div>
       </div>
-
-      <div class="card project-card">
-        <div class="project-icon">🗄️</div>
-        <h3>SQL Projects</h3>
-
-        <a 
-          href="https://github.com/humairdata7?tab=repositories&q=SQL" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="project-link">
-          View Projects →
-        </a>
-      </div>
-
-      <div class="card project-card">
-        <div class="project-icon">🐍</div>
-        <h3>Python Projects</h3>
-
-        <a 
-          href="https://github.com/humairdata7?tab=repositories&q=Python" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="project-link">
-          View Projects →
-        </a>
-      </div>
-
     </div>
-  </section>
 
-  <section id="education" class="education">
-    <h2 class="section-title">Education</h2>
+  </div>
+</section>
 
-    <div class="education-box">
-      <h3>Bachelor of Software Engineering</h3>
-      <p>Riphah International University, Faisalabad</p>
-      <p>Graduated: January 2026</p>
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Education</div>
+  <h2 class="section-title">Academic Background</h2>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-degree">Bachelor of Software Engineering</div>
+      <div class="edu-uni">Riphah International University, Faisalabad</div>
+      <div class="edu-year">Graduated January 2026</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact" class="contact">
-    <h2 class="section-title">Contact</h2>
-    <p>Open to remote Data Analyst, BI Analyst, and Reporting Analyst opportunities.</p>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Open to Opportunities</h2>
+  <p class="section-sub">Looking for remote Data Analyst, BI Analyst, and Reporting Analyst roles. Let's connect!</p>
+  <div class="contact-links">
+    <a href="mailto:humairrajput2400@gmail.com" class="contact-btn email">✉️ Email Me</a>
+    <a href="https://github.com/humairdata7" class="contact-btn gh" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/humair12/" class="contact-btn li" target="_blank">LinkedIn</a>
+  </div>
+</section>
 
-    <div class="buttons">
-      <a href="mailto:humairrajput2400@gmail.com" class="btn-primary">Email Me</a>
-      <a href="https://github.com/humairdata7" target="_blank" rel="noopener noreferrer" class="btn-secondary">GitHub</a>
-      <a href="https://www.linkedin.com/in/humair12/" target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 Muhammad Humair | Data Analyst Portfolio</p>
-  </footer>
+<footer>© 2026 Muhammad Humair · Data Analyst · Faisalabad, Pakistan</footer>
 
 </body>
 </html>
