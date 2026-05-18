@@ -21,7 +21,6 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; width: 100%; z-index: 100;
     background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
@@ -34,7 +33,6 @@
   .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
 
-  /* HERO */
   .hero {
     min-height: 100vh; display: flex; align-items: center;
     padding: 8rem 5% 4rem;
@@ -76,13 +74,11 @@
   .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); font-weight: 600; }
   .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-  /* SECTIONS */
   section { padding: 5rem 5%; }
   .section-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.75rem; }
   .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--navy); font-weight: 600; margin-bottom: 1rem; }
   .section-sub { color: var(--text-muted); max-width: 540px; font-size: 1rem; margin-bottom: 3rem; }
 
-  /* ABOUT */
   #about { background: var(--white); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .about-text p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.97rem; }
@@ -96,7 +92,6 @@
   .hi-title { font-weight: 500; font-size: 0.95rem; color: var(--navy); }
   .hi-desc { font-size: 0.83rem; color: var(--text-muted); margin-top: 0.2rem; }
 
-  /* SKILLS */
   #skills { background: var(--surface); }
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
   .skill-card {
@@ -113,12 +108,8 @@
   .skill-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
   .skill-name { font-weight: 500; color: var(--navy); font-size: 1rem; margin-bottom: 0.4rem; }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
-  .tag {
-    background: var(--accent-light); color: var(--accent);
-    font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px;
-  }
+  .tag { background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px; }
 
-  /* PROJECTS */
   #projects { background: var(--white); }
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
   .project-card {
@@ -140,10 +131,7 @@
   .project-img-placeholder p { font-size: 0.78rem; }
   .project-body { padding: 1.25rem; }
   .project-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-  .project-tool {
-    background: var(--accent-light); color: var(--accent);
-    font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px;
-  }
+  .project-tool { background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 4px; }
   .project-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); font-weight: 600; margin-bottom: 0.5rem; }
   .project-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.6; }
   .project-metric {
@@ -158,10 +146,7 @@
   }
   .project-link.github { background: var(--navy); color: white; }
   .project-link.github:hover { background: var(--navy-mid); }
-  .project-link.demo { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-  .project-link.demo:hover { background: var(--border); }
 
-  /* EDUCATION */
   #education { background: var(--surface); }
   .edu-card {
     background: var(--white); border: 1px solid var(--border); border-radius: 12px;
@@ -176,7 +161,6 @@
   .edu-uni { color: var(--text-muted); font-size: 0.88rem; margin-top: 0.25rem; }
   .edu-year { font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-top: 0.5rem; }
 
-  /* CONTACT */
   #contact { background: var(--navy); color: white; text-align: center; }
   #contact .section-label { color: #93c5fd; }
   #contact .section-title { color: white; }
@@ -194,10 +178,8 @@
   .contact-btn.li { background: #0077b5; color: white; }
   .contact-btn.li:hover { background: #005885; }
 
-  /* FOOTER */
   footer { background: #111827; color: #6b7280; text-align: center; padding: 1.5rem; font-size: 0.82rem; }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .hero-stats { gap: 1.5rem; }
@@ -208,7 +190,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">Muhammad Humair</div>
   <ul class="nav-links">
@@ -220,7 +201,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <div class="hero-badge">📍 Faisalabad, Pakistan · Open to Remote</div>
@@ -247,7 +227,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="section-label">About Me</div>
   <div class="about-grid">
@@ -290,7 +269,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="section-label">Technical Skills</div>
   <h2 class="section-title">Tools & Technologies</h2>
@@ -331,43 +309,38 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-label">My Work</div>
   <h2 class="section-title">Featured Projects</h2>
   <p class="section-sub">Real-world data analysis projects showcasing dashboards, data cleaning, and business insights.</p>
   <div class="projects-grid">
 
-    <!-- PROJECT 1 — Edit karo apne project ke hisab se -->
+    <!-- PROJECT 1 — E-commerce Sales Dashboard (LIVE) -->
     <div class="project-card">
       <div class="project-img">
-        <!-- Screenshot hone ke baad yahan add karo:
-        <img src="screenshots/project1.png" alt="Sales Dashboard"> -->
-        <div class="project-img-placeholder">
-          <span>📊</span>
-          <p>Screenshot coming soon</p>
-        </div>
+        <img src="https://raw.githubusercontent.com/humairdata7/PowerBI-Sales-Dashboard/main/dashboard.gif" alt="E-commerce Sales Performance Dashboard">
       </div>
       <div class="project-body">
         <div class="project-tools">
           <span class="project-tool">Power BI</span>
+          <span class="project-tool">DAX</span>
           <span class="project-tool">Excel</span>
         </div>
-        <div class="project-title">Sales Performance Dashboard</div>
-        <div class="project-desc">Analyzed 12 months of retail sales data to identify top-performing products, regional trends, and seasonal patterns using interactive Power BI dashboard.</div>
-        <div class="project-metric">📈 Identified 3 underperforming regions saving $X in resources</div>
+        <div class="project-title">E-commerce Sales Performance Dashboard</div>
+        <div class="project-desc">Analyzed e-commerce sales data to track 1M+ total sales, order status, payment methods, and regional performance across major Pakistani cities.</div>
+        <div class="project-metric">📈 Total Sales: 1M · 3 cities · 5 product categories analyzed</div>
         <div class="project-links">
-          <a href="https://github.com/humairdata7" class="project-link github" target="_blank">GitHub →</a>
+          <a href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" class="project-link github" target="_blank">GitHub →</a>
         </div>
       </div>
     </div>
 
-    <!-- PROJECT 2 -->
+    <!-- PROJECT 2 — Apna doosra project yahan add karna -->
     <div class="project-card">
       <div class="project-img">
         <div class="project-img-placeholder">
           <span>📗</span>
-          <p>Screenshot coming soon</p>
+          <p>Coming soon</p>
         </div>
       </div>
       <div class="project-body">
@@ -376,7 +349,7 @@
           <span class="project-tool">Power Query</span>
         </div>
         <div class="project-title">HR Analytics Dashboard</div>
-        <div class="project-desc">Built an Excel dashboard analyzing employee data including headcount, attrition, department performance, and salary distribution with Pivot Tables.</div>
+        <div class="project-desc">Excel dashboard analyzing employee headcount, attrition, department performance, and salary distribution with Pivot Tables and Power Query.</div>
         <div class="project-metric">📊 Cleaned and analyzed 1,000+ employee records</div>
         <div class="project-links">
           <a href="https://github.com/humairdata7" class="project-link github" target="_blank">GitHub →</a>
@@ -384,12 +357,12 @@
       </div>
     </div>
 
-    <!-- PROJECT 3 -->
+    <!-- PROJECT 3 — Apna teesra project yahan add karna -->
     <div class="project-card">
       <div class="project-img">
         <div class="project-img-placeholder">
           <span>📉</span>
-          <p>Screenshot coming soon</p>
+          <p>Coming soon</p>
         </div>
       </div>
       <div class="project-body">
@@ -398,7 +371,7 @@
           <span class="project-tool">DAX</span>
         </div>
         <div class="project-title">Financial KPI Report</div>
-        <div class="project-desc">Created a monthly financial reporting dashboard with revenue, expense, and profit KPIs, enabling management to track business performance at a glance.</div>
+        <div class="project-desc">Monthly financial reporting dashboard with revenue, expense, and profit KPIs enabling management to track business performance at a glance.</div>
         <div class="project-metric">⚡ Reduced manual reporting time by 3 hours/week</div>
         <div class="project-links">
           <a href="https://github.com/humairdata7" class="project-link github" target="_blank">GitHub →</a>
@@ -409,7 +382,6 @@
   </div>
 </section>
 
-<!-- EDUCATION -->
 <section id="education">
   <div class="section-label">Education</div>
   <h2 class="section-title">Academic Background</h2>
@@ -423,7 +395,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-label">Get In Touch</div>
   <h2 class="section-title">Open to Opportunities</h2>
