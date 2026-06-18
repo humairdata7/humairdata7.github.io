@@ -1,53 +1,329 @@
-# NVIDIA Stock Performance Analysis (1999–2026)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Humair | Data Analyst</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-alt: #F4F6F7;
+    --card: #FFFFFF;
+    --border: #D5D8DC;
+    --text: #1C1C1C;
+    --text-muted: #5B6B73;
+    --accent: #1A5276;
+    --accent-light: #2E86C1;
+    --accent-bg: #EBF5FB;
+  }
+  [data-theme="dark"] {
+    --bg: #0F1720;
+    --bg-alt: #16212C;
+    --card: #1B2733;
+    --border: #2C3A47;
+    --text: #EAF1F6;
+    --text-muted: #93A4AF;
+    --accent: #5DADE2;
+    --accent-light: #85C1E9;
+    --accent-bg: #1E3A4C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.25s ease, color 0.25s ease;
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-An interactive Power BI dashboard analyzing 26 years of NVIDIA Corporation (NASDAQ: NVDA) stock performance — from its 1999 IPO to the Generative AI boom of 2023–2026.
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; max-width: 1080px; margin: 0 auto;
+  }
+  .logo { font-weight: 700; font-size: 18px; color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+  .nav-links a:hover { color: var(--accent); }
+  .theme-toggle {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--bg-alt);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; transition: transform 0.2s;
+  }
+  .theme-toggle:hover { transform: scale(1.08); }
 
-![NVIDIA Dashboard](dashboard-screenshot.png)
+  /* HERO */
+  .hero { padding: 72px 0 48px; }
+  .location { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero h1 { font-size: 44px; font-weight: 700; line-height: 1.15; max-width: 720px; }
+  .hero h1 .grad {
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead { font-size: 17px; color: var(--text-muted); max-width: 600px; margin: 18px 0 28px; }
+  .hero-cta { display: flex; gap: 14px; }
+  .btn {
+    padding: 12px 22px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    cursor: pointer; border: none; display: inline-block;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn:hover { opacity: 0.88; }
 
-## 📊 Overview
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; max-width: 560px; }
+  .stat-num { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
-This dashboard tracks NVIDIA's transformation from a niche gaming GPU company to a $500B+ AI computing giant, using historical price, market cap, revenue, and technical indicator data across five distinct business eras.
+  /* SECTIONS */
+  section { padding: 56px 0; }
+  .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .section-title { font-size: 28px; font-weight: 700; margin: 8px 0 12px; }
+  .section-sub { font-size: 15px; color: var(--text-muted); max-width: 560px; margin-bottom: 36px; }
 
-## 🔑 Key Insights
+  #about { background: var(--bg-alt); }
+  .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
+  .about-text p { color: var(--text-muted); margin-bottom: 14px; font-size: 15px; }
+  .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .about-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+  }
+  .about-card .icon { font-size: 22px; margin-bottom: 8px; }
+  .about-card h4 { font-size: 14px; margin-bottom: 4px; }
+  .about-card p { font-size: 12.5px; color: var(--text-muted); }
 
-- **All-time high close price:** $20.73
-- **Peak market capitalization:** $507.71B
-- **7,079 trading days** analyzed (1999–2026)
-- **Generative AI Era (2023–2026)** generated an average quarterly revenue of $17.33B — over 9x higher than the Data Center Growth era
-- RSI-14 momentum indicator shows a clear bullish shift starting in 2023, aligned with the AI boom
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  }
+  .skill-card .icon { font-size: 26px; margin-bottom: 10px; }
+  .skill-card h4 { font-size: 15px; margin-bottom: 4px; }
+  .skill-card .desc { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; padding: 3px 9px; border-radius: 20px;
+    background: var(--accent-bg); color: var(--accent);
+  }
 
-## 🛠️ Tools & Techniques Used
+  /* PROJECTS */
+  .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .project-thumb {
+    height: 170px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center;
+    font-size: 42px; color: var(--accent);
+  }
+  .project-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .project-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+  .project-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .project-tags span {
+    font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--accent-bg); color: var(--accent);
+  }
+  .project-card h3 { font-size: 17px; margin-bottom: 6px; }
+  .project-card .project-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px; flex: 1; }
+  .project-stat { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-bottom: 14px; }
+  .project-link { font-size: 13px; font-weight: 600; color: var(--accent); }
+  .project-link:hover { text-decoration: underline; }
 
-- **Power BI Desktop** — dashboard design and data modeling
-- **DAX** — custom measures for KPI cards (max/min price, formatted market cap, latest close price)
-- **Power Query** — data cleaning and date/era transformations
-- **Data visualization** — line charts, bar charts, KPI cards, custom sort orders, and axis filtering
+  /* EDUCATION */
+  .edu-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 26px;
+    display: flex; gap: 20px; align-items: flex-start; max-width: 640px;
+  }
+  .edu-icon { font-size: 32px; }
+  .edu-card h3 { font-size: 17px; margin-bottom: 4px; }
+  .edu-card p { font-size: 13.5px; color: var(--text-muted); }
 
-## 📈 Dashboard Pages / Visuals
+  /* CONTACT */
+  #contact { background: var(--bg-alt); text-align: center; }
+  #contact .section-title { margin-top: 8px; }
+  .contact-links { display: flex; gap: 14px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
 
-| Visual | Insight |
-|--------|---------|
-| KPI Cards | All-time high price, max market cap, total trading days, average RSI |
-| Yearly Avg Close Price (1999–2026) | Long-term price trend showing explosive growth post-2023 |
-| Avg Quarterly Revenue by Era | Revenue comparison across NVIDIA's 5 business eras |
-| Yearly Avg RSI-14 (2020–2026) | Momentum indicator highlighting the AI-era bull run |
-| Avg Close Price by Month | Seasonal price pattern across calendar months |
+  footer { text-align: center; padding: 28px 0; font-size: 12.5px; color: var(--text-muted); }
 
-## 📂 Dataset
+  @media (max-width: 760px) {
+    .nav-links a:not(.theme-toggle) { display: none; }
+    .hero h1 { font-size: 32px; }
+    .about-grid, .skills-grid, .project-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body data-theme="light">
 
-- **Source:** [Kaggle](https://www.kaggle.com) — NVIDIA historical stock dataset (1999–2026)
-- **Rows:** 7,079 daily trading records
-- **Columns:** Date, Open, High, Low, Close, Volume, Market Cap, Quarterly Revenue, SMA (20/50/200), RSI-14, Era, Stock Split, Key Events
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Muhammad Humair</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+</nav>
 
-## 🚀 How to Use
+<header class="hero container">
+  <div class="location">📍 Faisalabad, Pakistan · Open to Remote</div>
+  <h1>Data Analyst turning raw data into <span class="grad">clear insights</span></h1>
+  <p class="lead">I build dashboards, clean datasets, and write SQL queries that help businesses understand their data and make smarter decisions.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Projects →</a>
+    <a href="mailto:humairrajput2400@gmail.com" class="btn btn-secondary">Contact Me</a>
+  </div>
+  <div class="stats">
+    <div><div class="stat-num">3+</div><div class="stat-label">Projects Completed</div></div>
+    <div><div class="stat-num">4</div><div class="stat-label">Tools Mastered</div></div>
+    <div><div class="stat-num">BSE</div><div class="stat-label">Software Engineering</div></div>
+  </div>
+</header>
 
-1. Download `NVIDIA_Dashboard.pbix` from this repository
-2. Open in Power BI Desktop
-3. Explore the interactive visuals — filter by year or era using the slicers
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-eyebrow">About Me</div>
+        <div class="section-title">Passionate about data storytelling</div>
+        <p>I am an entry-level Data Analyst from Pakistan with a Software Engineering background from Riphah International University, Faisalabad (2026).</p>
+        <p>My focus is on transforming complex, messy data into clean, visual stories — dashboards and reports that decision-makers can actually use.</p>
+        <p>I am actively seeking remote Data Analyst, BI Analyst, or Reporting Analyst roles where I can contribute immediately and grow fast.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card"><div class="icon">📊</div><h4>Dashboard Development</h4><p>Building interactive Power BI dashboards with KPI cards, slicers, and DAX measures</p></div>
+        <div class="about-card"><div class="icon">🧹</div><h4>Data Cleaning & Analysis</h4><p>Transforming raw data using Excel, Power Query, and SQL into analysis-ready datasets</p></div>
+        <div class="about-card"><div class="icon">🗄️</div><h4>SQL Querying</h4><p>Writing joins, subqueries, and aggregations to extract business insights from databases</p></div>
+        <div class="about-card"><div class="icon">🌐</div><h4>Remote Ready</h4><p>Available for full-time remote work across US, UK, EU, and GCC time zones</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-## 👤 Author
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow">Technical Skills</div>
+    <div class="section-title">Tools & Technologies</div>
+    <div class="section-sub">Core tools I use to analyze data, build dashboards, and deliver business insights.</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="icon">📊</div>
+        <h4>Power BI</h4>
+        <div class="desc">Dashboard creation and business reporting</div>
+        <div class="tag-row"><span class="tag">DAX</span><span class="tag">KPI Cards</span><span class="tag">Slicers</span><span class="tag">Data Model</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">📗</div>
+        <h4>Microsoft Excel</h4>
+        <div class="desc">Data cleaning and analysis</div>
+        <div class="tag-row"><span class="tag">Pivot Tables</span><span class="tag">VLOOKUP</span><span class="tag">Charts</span><span class="tag">Power Query</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🗄️</div>
+        <h4>SQL / MySQL</h4>
+        <div class="desc">Data extraction and analysis</div>
+        <div class="tag-row"><span class="tag">Joins</span><span class="tag">GROUP BY</span><span class="tag">Subqueries</span><span class="tag">Aggregations</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🐍</div>
+        <h4>Python</h4>
+        <div class="desc">Data manipulation and analysis</div>
+        <div class="tag-row"><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-**Muhammad Humair**
-Data Analyst | Power BI · SQL · Excel · Python
-📧 humairrajput2400@gmail.com
-🔗 [LinkedIn](https://www.linkedin.com/in/humair12/) · [Portfolio](https://humairdata7.github.io/)
+<section id="projects">
+  <div class="container">
+    <div class="section-eyebrow">My Work</div>
+    <div class="section-title">Featured Projects</div>
+    <div class="section-sub">Real-world data analysis projects showcasing dashboards, data cleaning, and business insights.</div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-thumb"><img src="https://raw.githubusercontent.com/humairdata7/PowerBI-Sales-Dashboard/main/dashboard.gif" alt="E-commerce Sales Performance Dashboard"></div>
+        <div class="project-body">
+          <div class="project-tags"><span>Power BI</span><span>DAX</span><span>Excel</span></div>
+          <h3>E-commerce Sales Performance Dashboard</h3>
+          <p class="project-desc">Analyzed e-commerce sales data to track 1M+ total sales, order status, payment methods, and regional performance across major Pakistani cities.</p>
+          <div class="project-stat">📈 Total Sales: 1M · 3 cities · 5 product categories analyzed</div>
+          <a class="project-link" href="https://github.com/humairdata7/PowerBI-Sales-Dashboard">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">📈</div>
+        <div class="project-body">
+          <div class="project-tags"><span>Power BI</span><span>DAX</span><span>Data Analysis</span></div>
+          <h3>NVIDIA Stock Performance Analysis (1999–2026)</h3>
+          <p class="project-desc">Multi-page Power BI dashboard analyzing 26 years of NVIDIA stock data — price trends, market cap growth, quarterly revenue by era, and RSI momentum indicators.</p>
+          <div class="project-stat">📊 7,079 trading days · 5 business eras · $507.71B peak market cap</div>
+          <a class="project-link" href="https://github.com/humairdata7/NVIDIA-Stock-Dashboard">GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <div class="section-eyebrow">Education</div>
+    <div class="section-title">Academic Background</div>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <h3>Bachelor of Software Engineering</h3>
+        <p>Riphah International University, Faisalabad</p>
+        <p>Graduated January 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-eyebrow">Get In Touch</div>
+    <div class="section-title">Open to Opportunities</div>
+    <div class="section-sub" style="margin: 0 auto;">Looking for remote Data Analyst, BI Analyst, and Reporting Analyst roles. Let's connect!</div>
+    <div class="contact-links">
+      <a href="mailto:humairrajput2400@gmail.com" class="btn btn-primary">✉️ Email Me</a>
+      <a href="https://github.com/humairdata7" class="btn btn-secondary">GitHub</a>
+      <a href="https://www.linkedin.com/in/humair12/" class="btn btn-secondary">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Muhammad Humair · Data Analyst · Faisalabad, Pakistan</footer>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const body = document.body;
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    body.setAttribute('data-theme', saved);
+    toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+  }
+  toggle.addEventListener('click', () => {
+    const current = body.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', next);
+    toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+</body>
+</html>
