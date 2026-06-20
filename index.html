@@ -36,6 +36,24 @@
       radial-gradient(ellipse 700px 500px at 100% 30%, rgba(201,162,75,0.06), transparent 60%);
     pointer-events: none; z-index: 0;
   }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none; z-index: 0;
+    mask-image: radial-gradient(ellipse 800px 600px at 20% 0%, black 0%, transparent 70%);
+  }
+  ::selection { background: var(--gold); color: #0B0B0D; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
   a { color: inherit; text-decoration: none; }
   .serif { font-family: 'Playfair Display', serif; }
   .mono { font-family: 'JetBrains Mono', monospace; }
@@ -64,37 +82,47 @@
   .nav-links { display: flex; gap: 32px; align-items: center; }
   .nav-links a {
     font-size: 13px; letter-spacing: 0.04em; color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace; transition: color 0.2s;
+    font-family: 'JetBrains Mono', monospace; transition: color 0.2s; position: relative;
   }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px;
+    background: var(--gold); transition: width 0.25s;
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
   .nav-links a:hover { color: var(--gold-soft); }
+  .nav-links a.active { color: var(--gold-soft); }
 
   /* HERO */
   .hero { padding: 110px 0 90px; }
   .hero-tag {
     font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--gold);
     letter-spacing: 0.12em; margin-bottom: 26px; display: flex; align-items: center; gap: 10px;
+    animation: fadeUp 0.7s ease 0.05s both;
   }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--gold); } 50% { opacity: 0.55; box-shadow: 0 0 14px var(--gold); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   .hero h1 {
     font-family: 'Playfair Display', serif; font-weight: 700;
     font-size: 58px; line-height: 1.08; max-width: 760px; letter-spacing: -0.01em;
+    animation: fadeUp 0.8s ease 0.15s both;
   }
   .hero h1 em {
     font-style: italic; color: var(--gold-soft);
     background: linear-gradient(90deg, var(--gold-soft), var(--gold));
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .hero p.lead { font-size: 17px; color: var(--text-muted); max-width: 540px; margin: 26px 0 38px; }
-  .hero-cta { display: flex; gap: 16px; }
+  .hero p.lead { font-size: 17px; color: var(--text-muted); max-width: 540px; margin: 26px 0 38px; animation: fadeUp 0.8s ease 0.28s both; }
+  .hero-cta { display: flex; gap: 16px; animation: fadeUp 0.8s ease 0.4s both; }
   .btn {
     padding: 14px 28px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.03em;
     cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'Inter', sans-serif; transition: all 0.25s;
+    font-family: 'Inter', sans-serif; transition: all 0.25s; position: relative; overflow: hidden;
   }
   .btn-gold { background: var(--gold); color: #0B0B0D; border: 1px solid var(--gold); }
-  .btn-gold:hover { background: var(--gold-soft); transform: translateY(-1px); }
+  .btn-gold:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(201,162,75,0.25); }
   .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--line); }
-  .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold-soft); }
+  .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold-soft); transform: translateY(-2px); }
 
   .hero-stats {
     display: flex; gap: 0; margin-top: 64px; border-top: 1px solid var(--line); padding-top: 28px; max-width: 600px;
@@ -116,24 +144,45 @@
   .ledger { border-top: 1px solid var(--line); }
   .ledger-row {
     display: flex; justify-content: space-between; align-items: baseline;
-    padding: 16px 0; border-bottom: 1px solid var(--line);
+    padding: 16px 4px; border-bottom: 1px solid var(--line); transition: padding-left 0.25s, background 0.25s;
   }
+  .ledger-row:hover { padding-left: 12px; background: rgba(201,162,75,0.04); }
   .ledger-row .k { font-size: 13.5px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
   .ledger-row .v { font-size: 14.5px; color: var(--text); font-weight: 500; text-align: right; }
 
   /* SKILLS */
   .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .skill-card { background: var(--bg-card); padding: 28px 22px; position: relative; }
+  .skill-card { background: var(--bg-card); padding: 28px 22px; position: relative; transition: background 0.3s; }
+  .skill-card:hover { background: #1D1D24; }
+  .skill-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .skill-card:hover::before { width: 100%; }
   .skill-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold-dim); letter-spacing: 0.1em; }
-  .skill-card h4 { font-family: 'Playfair Display', serif; font-size: 19px; margin: 14px 0 8px; }
+  .skill-card h4 { font-family: 'Playfair Display', serif; font-size: 19px; margin: 14px 0 8px; transition: color 0.2s; }
+  .skill-card:hover h4 { color: var(--gold-soft); }
   .skill-card .desc { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; line-height: 1.5; }
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
     font-size: 10.5px; padding: 4px 9px; border: 1px solid var(--gold-dim); color: var(--gold-soft);
-    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; transition: all 0.2s;
   }
+  .tag:hover { background: var(--gold); color: #0B0B0D; border-color: var(--gold); }
 
   /* PROJECTS */
+  .project-tabs { display: flex; gap: 0; margin-bottom: 44px; border: 1px solid var(--line); width: fit-content; }
+  .tab-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 0.05em;
+    padding: 13px 24px; background: transparent; color: var(--text-dim); cursor: pointer;
+    border: none; border-right: 1px solid var(--line); transition: all 0.2s;
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn:hover { color: var(--gold-soft); }
+  .tab-btn.active { background: var(--gold); color: #0B0B0D; font-weight: 600; }
+  .project-panel { display: none; }
+  .project-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .project-list { display: flex; flex-direction: column; }
   .project-row {
     display: grid; grid-template-columns: 90px 1fr auto; gap: 24px; align-items: center;
@@ -174,6 +223,16 @@
 
   footer { text-align: center; padding: 36px 0; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
 
+  .back-to-top {
+    position: fixed; bottom: 28px; right: 28px; width: 46px; height: 46px;
+    border-radius: 50%; background: var(--bg-card); border: 1px solid var(--gold-dim);
+    color: var(--gold); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 16px; opacity: 0; pointer-events: none;
+    transition: all 0.3s; z-index: 90;
+  }
+  .back-to-top.show { opacity: 1; pointer-events: auto; }
+  .back-to-top:hover { background: var(--gold); color: #0B0B0D; transform: translateY(-3px); }
+
   @media (max-width: 760px) {
     .nav-links { display: none; }
     .hero h1 { font-size: 38px; }
@@ -199,7 +258,7 @@
   </div>
 </nav>
 
-<header class="hero container">
+<header class="hero container" id="home">
   <div class="hero-tag"><span class="dot"></span>FAISALABAD, PAKISTAN — OPEN TO REMOTE</div>
   <h1>Turning raw data<br>into <em>clear decisions</em>.</h1>
   <p class="lead">Data Analyst specializing in Power BI, SQL, and Excel — building dashboards and analyses that businesses actually use to make decisions.</p>
@@ -217,14 +276,14 @@
 <section id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-text">
+      <div class="about-text reveal">
         <div class="eyebrow">01 — ABOUT</div>
         <h2 class="section-title">The analyst's lens</h2>
         <p style="margin-top:24px">I'm an entry-level <strong>Data Analyst</strong> from Faisalabad, Pakistan, with a Software Engineering degree from Riphah International University.</p>
         <p>My work sits at the intersection of structure and story — taking messy, disconnected data and shaping it into dashboards that decision-makers can actually read at a glance.</p>
         <p>Currently seeking remote <strong>Data Analyst</strong> and <strong>BI Analyst</strong> roles where rigorous analysis meets real business impact.</p>
       </div>
-      <div class="ledger">
+      <div class="ledger reveal" style="transition-delay:0.15s">
         <div class="ledger-row"><span class="k">LOCATION</span><span class="v">Faisalabad, Pakistan</span></div>
         <div class="ledger-row"><span class="k">FOCUS</span><span class="v">Business Intelligence</span></div>
         <div class="ledger-row"><span class="k">TOOLS</span><span class="v">Power BI · SQL · Excel</span></div>
@@ -237,11 +296,11 @@
 
 <section id="skills">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">02 — CAPABILITIES</div>
       <h2 class="section-title">Tools of the trade</h2>
     </div>
-    <div class="skills-grid">
+    <div class="skills-grid reveal">
       <div class="skill-card">
         <div class="skill-num">01</div>
         <h4>Power BI</h4>
@@ -272,44 +331,112 @@
 
 <section id="projects">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">03 — SELECTED WORK</div>
       <h2 class="section-title">Featured projects</h2>
       <p class="section-sub">Real dashboards built with real data — from e-commerce sales to 26 years of NVIDIA stock history.</p>
     </div>
-    <div class="project-list">
 
-      <div class="project-row">
-        <div class="project-index">01</div>
-        <div>
-          <h3>E-commerce Sales Performance Dashboard</h3>
-          <p class="project-desc">Multi-page Power BI dashboard tracking 1M+ in sales across cities, product categories, and payment methods — with drill-through reporting for stakeholders.</p>
-          <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>EXCEL</span></div>
+    <div class="project-tabs reveal">
+      <button class="tab-btn active" data-tab="all">All</button>
+      <button class="tab-btn" data-tab="bi">Business Intelligence</button>
+      <button class="tab-btn" data-tab="sql">SQL & Data</button>
+      <button class="tab-btn" data-tab="excel">Excel</button>
+    </div>
+
+    <div class="project-panel active" data-panel="all">
+      <div class="project-list">
+
+        <div class="project-row">
+          <div class="project-index">01</div>
+          <div>
+            <h3>E-commerce Sales Performance Dashboard</h3>
+            <p class="project-desc">Multi-page Power BI dashboard tracking 1M+ in sales across cities, product categories, and payment methods — with drill-through reporting for stakeholders.</p>
+            <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>EXCEL</span></div>
+          </div>
+          <a href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" class="project-link">VIEW REPO →</a>
         </div>
-        <a href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" class="project-link">VIEW REPO →</a>
-      </div>
 
-      <div class="project-row">
-        <div class="project-index">02</div>
-        <div>
-          <h3>NVIDIA Stock Performance Analysis (1999–2026)</h3>
-          <p class="project-desc">26 years of NVIDIA stock history analyzed — price trends, market cap growth, quarterly revenue by business era, and RSI momentum across the AI boom.</p>
-          <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>DATA ANALYSIS</span></div>
+        <div class="project-row">
+          <div class="project-index">02</div>
+          <div>
+            <h3>NVIDIA Stock Performance Analysis (1999–2026)</h3>
+            <p class="project-desc">26 years of NVIDIA stock history analyzed — price trends, market cap growth, quarterly revenue by business era, and RSI momentum across the AI boom.</p>
+            <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>DATA ANALYSIS</span></div>
+          </div>
+          <a href="https://github.com/humairdata7/NVIDIA-Stock-Dashboard" class="project-link">VIEW REPO →</a>
         </div>
-        <a href="https://github.com/humairdata7/NVIDIA-Stock-Dashboard" class="project-link">VIEW REPO →</a>
-      </div>
 
+      </div>
+    </div>
+
+    <div class="project-panel" data-panel="bi">
+      <div class="project-list">
+
+        <div class="project-row">
+          <div class="project-index">01</div>
+          <div>
+            <h3>E-commerce Sales Performance Dashboard</h3>
+            <p class="project-desc">Multi-page Power BI dashboard tracking 1M+ in sales across cities, product categories, and payment methods — with drill-through reporting for stakeholders.</p>
+            <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>EXCEL</span></div>
+          </div>
+          <a href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" class="project-link">VIEW REPO →</a>
+        </div>
+
+        <div class="project-row">
+          <div class="project-index">02</div>
+          <div>
+            <h3>NVIDIA Stock Performance Analysis (1999–2026)</h3>
+            <p class="project-desc">26 years of NVIDIA stock history analyzed — price trends, market cap growth, quarterly revenue by business era, and RSI momentum across the AI boom.</p>
+            <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>DATA ANALYSIS</span></div>
+          </div>
+          <a href="https://github.com/humairdata7/NVIDIA-Stock-Dashboard" class="project-link">VIEW REPO →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="project-panel" data-panel="sql">
+      <div class="project-list">
+
+        <div class="project-row">
+          <div class="project-index">01</div>
+          <div>
+            <h3>SQL Data Analysis & Database Management</h3>
+            <p class="project-desc">Designed normalized relational databases and wrote 30+ analytical queries across employee, department, salary, and order schemas using complex joins.</p>
+            <div class="project-meta"><span>MYSQL</span><span>SQL</span></div>
+          </div>
+          <a href="https://github.com/humairdata7" class="project-link">VIEW REPO →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="project-panel" data-panel="excel">
+      <div class="project-list">
+
+        <div class="project-row">
+          <div class="project-index">01</div>
+          <div>
+            <h3>Excel Data Analysis Workbook</h3>
+            <p class="project-desc">Built a structured Excel workbook for business data cleaning, organization, and KPI reporting using Pivot Tables, VLOOKUP, and conditional logic — with chart-based visualizations for category-level trends.</p>
+            <div class="project-meta"><span>EXCEL</span><span>PIVOT TABLES</span></div>
+          </div>
+          <a href="https://github.com/humairdata7" class="project-link">VIEW REPO →</a>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
 <section id="education">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">04 — EDUCATION</div>
       <h2 class="section-title">Academic background</h2>
     </div>
-    <div class="edu-row">
+    <div class="edu-row reveal">
       <div class="edu-year">2022–2026</div>
       <div>
         <h3>Bachelor of Software Engineering</h3>
@@ -333,6 +460,55 @@
 </section>
 
 <footer>© 2026 MUHAMMAD HUMAIR — DATA ANALYST — FAISALABAD, PAKISTAN</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.project-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`.project-panel[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Back to top button
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) backToTop.classList.add('show');
+    else backToTop.classList.remove('show');
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section, header.hero');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (window.scrollY >= top) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
 
 </body>
 </html>
