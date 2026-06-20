@@ -4,190 +4,213 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhammad Humair | Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FFFFFF;
-    --bg-alt: #F4F6F7;
-    --card: #FFFFFF;
-    --border: #D5D8DC;
-    --text: #1C1C1C;
-    --text-muted: #5B6B73;
-    --accent: #1A5276;
-    --accent-light: #2E86C1;
-    --accent-bg: #EBF5FB;
-  }
-  [data-theme="dark"] {
-    --bg: #0F1720;
-    --bg-alt: #16212C;
-    --card: #1B2733;
-    --border: #2C3A47;
-    --text: #EAF1F6;
-    --text-muted: #93A4AF;
-    --accent: #5DADE2;
-    --accent-light: #85C1E9;
-    --accent-bg: #1E3A4C;
+    --bg: #0B0B0D;
+    --bg-raised: #15151A;
+    --bg-card: #18181E;
+    --gold: #C9A24B;
+    --gold-soft: #E8CD8A;
+    --gold-dim: #6B5A30;
+    --line: #2A2A30;
+    --text: #F2EFE9;
+    --text-muted: #9B9B9B;
+    --text-dim: #6E6E72;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
-    transition: background 0.25s ease, color 0.25s ease;
-    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(201,162,75,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 30%, rgba(201,162,75,0.06), transparent 60%);
+    pointer-events: none; z-index: 0;
   }
   a { color: inherit; text-decoration: none; }
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .serif { font-family: 'Playfair Display', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold-dim); display: inline-block; }
 
   /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(8px);
+    background: rgba(11,11,13,0.78);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
   }
   .nav-inner {
+    max-width: 1040px; margin: 0 auto; padding: 20px 28px;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; max-width: 1080px; margin: 0 auto;
   }
-  .logo { font-weight: 700; font-size: 18px; color: var(--accent); }
-  .nav-links { display: flex; gap: 28px; align-items: center; }
-  .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); }
-  .nav-links a:hover { color: var(--accent); }
-  .theme-toggle {
-    width: 44px; height: 44px; border-radius: 50%;
-    border: 1px solid var(--border); background: var(--bg-alt);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 18px; transition: transform 0.2s;
+  .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 19px; letter-spacing: 0.02em; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: 13px; letter-spacing: 0.04em; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace; transition: color 0.2s;
   }
-  .theme-toggle:hover { transform: scale(1.08); }
+  .nav-links a:hover { color: var(--gold-soft); }
 
   /* HERO */
-  .hero { padding: 72px 0 48px; }
-  .location { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
-  .hero h1 { font-size: 44px; font-weight: 700; line-height: 1.15; max-width: 720px; }
-  .hero h1 .grad {
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  .hero { padding: 110px 0 90px; }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--gold);
+    letter-spacing: 0.12em; margin-bottom: 26px; display: flex; align-items: center; gap: 10px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 58px; line-height: 1.08; max-width: 760px; letter-spacing: -0.01em;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--gold-soft);
+    background: linear-gradient(90deg, var(--gold-soft), var(--gold));
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .hero p.lead { font-size: 17px; color: var(--text-muted); max-width: 600px; margin: 18px 0 28px; }
-  .hero-cta { display: flex; gap: 14px; }
+  .hero p.lead { font-size: 17px; color: var(--text-muted); max-width: 540px; margin: 26px 0 38px; }
+  .hero-cta { display: flex; gap: 16px; }
   .btn {
-    padding: 12px 22px; border-radius: 8px; font-size: 14px; font-weight: 600;
-    cursor: pointer; border: none; display: inline-block;
+    padding: 14px 28px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.03em;
+    cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif; transition: all 0.25s;
   }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
-  .btn:hover { opacity: 0.88; }
+  .btn-gold { background: var(--gold); color: #0B0B0D; border: 1px solid var(--gold); }
+  .btn-gold:hover { background: var(--gold-soft); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .btn-outline:hover { border-color: var(--gold-dim); color: var(--gold-soft); }
 
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; max-width: 560px; }
-  .stat-num { font-size: 28px; font-weight: 700; color: var(--accent); }
-  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-
-  /* SECTIONS */
-  section { padding: 56px 0; }
-  .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
-  .section-title { font-size: 28px; font-weight: 700; margin: 8px 0 12px; }
-  .section-sub { font-size: 15px; color: var(--text-muted); max-width: 560px; margin-bottom: 36px; }
-
-  #about { background: var(--bg-alt); }
-  .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
-  .about-text p { color: var(--text-muted); margin-bottom: 14px; font-size: 15px; }
-  .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .about-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+  .hero-stats {
+    display: flex; gap: 0; margin-top: 64px; border-top: 1px solid var(--line); padding-top: 28px; max-width: 600px;
   }
-  .about-card .icon { font-size: 22px; margin-bottom: 8px; }
-  .about-card h4 { font-size: 14px; margin-bottom: 4px; }
-  .about-card p { font-size: 12.5px; color: var(--text-muted); }
+  .stat { flex: 1; padding-right: 24px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--gold-soft); font-weight: 700; }
+  .stat-label { font-size: 12px; color: var(--text-dim); margin-top: 4px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.03em; }
+
+  /* SECTION SHARED */
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+  .section-head { margin-bottom: 48px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; margin: 14px 0 0; }
+  .section-sub { font-size: 15px; color: var(--text-muted); max-width: 520px; margin-top: 14px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: start; }
+  .about-text p { color: var(--text-muted); margin-bottom: 16px; font-size: 15.5px; }
+  .about-text strong { color: var(--gold-soft); font-weight: 600; }
+  .ledger { border-top: 1px solid var(--line); }
+  .ledger-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid var(--line);
+  }
+  .ledger-row .k { font-size: 13.5px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+  .ledger-row .v { font-size: 14.5px; color: var(--text); font-weight: 500; text-align: right; }
 
   /* SKILLS */
-  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .skill-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
-  }
-  .skill-card .icon { font-size: 26px; margin-bottom: 10px; }
-  .skill-card h4 { font-size: 15px; margin-bottom: 4px; }
-  .skill-card .desc { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .skill-card { background: var(--bg-card); padding: 28px 22px; position: relative; }
+  .skill-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold-dim); letter-spacing: 0.1em; }
+  .skill-card h4 { font-family: 'Playfair Display', serif; font-size: 19px; margin: 14px 0 8px; }
+  .skill-card .desc { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; line-height: 1.5; }
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
-    font-size: 11px; padding: 3px 9px; border-radius: 20px;
-    background: var(--accent-bg); color: var(--accent);
+    font-size: 10.5px; padding: 4px 9px; border: 1px solid var(--gold-dim); color: var(--gold-soft);
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
   }
 
   /* PROJECTS */
-  .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .project-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    overflow: hidden; display: flex; flex-direction: column;
+  .project-list { display: flex; flex-direction: column; }
+  .project-row {
+    display: grid; grid-template-columns: 90px 1fr auto; gap: 24px; align-items: center;
+    padding: 32px 0; border-bottom: 1px solid var(--line); transition: padding-left 0.25s;
   }
-  .project-thumb {
-    height: 170px; background: var(--accent-bg); display: flex; align-items: center; justify-content: center;
-    font-size: 42px; color: var(--accent);
+  .project-row:hover { padding-left: 8px; }
+  .project-index { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold-dim); }
+  .project-row h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px; }
+  .project-row:hover h3 { color: var(--gold-soft); }
+  .project-row .project-desc { font-size: 14px; color: var(--text-muted); max-width: 560px; margin-bottom: 10px; }
+  .project-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .project-meta span { font-size: 10.5px; font-family: 'JetBrains Mono', monospace; color: var(--text-dim); }
+  .project-meta span::after { content: '/'; margin-left: 8px; color: var(--line); }
+  .project-meta span:last-child::after { content: ''; }
+  .project-link {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold);
+    border: 1px solid var(--gold-dim); padding: 9px 16px; white-space: nowrap;
   }
-  .project-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .project-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
-  .project-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
-  .project-tags span {
-    font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--accent-bg); color: var(--accent);
-  }
-  .project-card h3 { font-size: 17px; margin-bottom: 6px; }
-  .project-card .project-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px; flex: 1; }
-  .project-stat { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-bottom: 14px; }
-  .project-link { font-size: 13px; font-weight: 600; color: var(--accent); }
-  .project-link:hover { text-decoration: underline; }
+  .project-row:hover .project-link { background: var(--gold); color: #0B0B0D; border-color: var(--gold); }
 
   /* EDUCATION */
-  .edu-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 26px;
-    display: flex; gap: 20px; align-items: flex-start; max-width: 640px;
-  }
-  .edu-icon { font-size: 32px; }
-  .edu-card h3 { font-size: 17px; margin-bottom: 4px; }
-  .edu-card p { font-size: 13.5px; color: var(--text-muted); }
+  .edu-row { display: flex; gap: 28px; align-items: flex-start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .edu-row:last-child { border-bottom: none; }
+  .edu-year { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold); min-width: 110px; }
+  .edu-row h3 { font-family: 'Playfair Display', serif; font-size: 19px; margin-bottom: 4px; }
+  .edu-row p { font-size: 14px; color: var(--text-muted); }
 
   /* CONTACT */
-  #contact { background: var(--bg-alt); text-align: center; }
-  #contact .section-title { margin-top: 8px; }
-  .contact-links { display: flex; gap: 14px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+  #contact { text-align: center; }
+  #contact .eyebrow { justify-content: center; }
+  #contact .eyebrow::before { display: none; }
+  #contact .section-title { margin-top: 14px; }
+  .contact-email {
+    font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold-soft);
+    margin: 28px 0; display: inline-block; border-bottom: 1px solid var(--gold-dim); padding-bottom: 6px;
+  }
+  .contact-links { display: flex; gap: 14px; justify-content: center; margin-top: 32px; }
 
-  footer { text-align: center; padding: 28px 0; font-size: 12.5px; color: var(--text-muted); }
+  footer { text-align: center; padding: 36px 0; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
 
   @media (max-width: 760px) {
-    .nav-links a:not(.theme-toggle) { display: none; }
-    .hero h1 { font-size: 32px; }
-    .about-grid, .skills-grid, .project-grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: repeat(3, 1fr); }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 38px; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .about-grid, .skills-grid { grid-template-columns: 1fr; }
+    .project-row { grid-template-columns: 1fr; gap: 10px; }
+    .project-link { width: fit-content; }
   }
 </style>
 </head>
-<body data-theme="light">
+<body>
 
 <nav>
   <div class="nav-inner">
-    <div class="logo">Muhammad Humair</div>
+    <div class="nav-logo">M.<span>Humair</span></div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
     </div>
   </div>
 </nav>
 
 <header class="hero container">
-  <div class="location">📍 Faisalabad, Pakistan · Open to Remote</div>
-  <h1>Data Analyst turning raw data into <span class="grad">clear insights</span></h1>
-  <p class="lead">I build dashboards, clean datasets, and write SQL queries that help businesses understand their data and make smarter decisions.</p>
+  <div class="hero-tag"><span class="dot"></span>FAISALABAD, PAKISTAN — OPEN TO REMOTE</div>
+  <h1>Turning raw data<br>into <em>clear decisions</em>.</h1>
+  <p class="lead">Data Analyst specializing in Power BI, SQL, and Excel — building dashboards and analyses that businesses actually use to make decisions.</p>
   <div class="hero-cta">
-    <a href="#projects" class="btn btn-primary">View My Projects →</a>
-    <a href="mailto:humairrajput2400@gmail.com" class="btn btn-secondary">Contact Me</a>
+    <a href="#projects" class="btn btn-gold">View Projects</a>
+    <a href="mailto:humairrajput2400@gmail.com" class="btn btn-outline">Get in Touch</a>
   </div>
-  <div class="stats">
-    <div><div class="stat-num">3+</div><div class="stat-label">Projects Completed</div></div>
-    <div><div class="stat-num">4</div><div class="stat-label">Tools Mastered</div></div>
-    <div><div class="stat-num">BSE</div><div class="stat-label">Software Engineering</div></div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">02</div><div class="stat-label">DASHBOARDS BUILT</div></div>
+    <div class="stat"><div class="stat-num">04</div><div class="stat-label">CORE TOOLS</div></div>
+    <div class="stat"><div class="stat-num">BSE</div><div class="stat-label">SOFTWARE ENGINEERING</div></div>
   </div>
 </header>
 
@@ -195,17 +218,18 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-text">
-        <div class="section-eyebrow">About Me</div>
-        <div class="section-title">Passionate about data storytelling</div>
-        <p>I am an entry-level Data Analyst from Pakistan with a Software Engineering background from Riphah International University, Faisalabad (2026).</p>
-        <p>My focus is on transforming complex, messy data into clean, visual stories — dashboards and reports that decision-makers can actually use.</p>
-        <p>I am actively seeking remote Data Analyst, BI Analyst, or Reporting Analyst roles where I can contribute immediately and grow fast.</p>
+        <div class="eyebrow">01 — ABOUT</div>
+        <h2 class="section-title">The analyst's lens</h2>
+        <p style="margin-top:24px">I'm an entry-level <strong>Data Analyst</strong> from Faisalabad, Pakistan, with a Software Engineering degree from Riphah International University.</p>
+        <p>My work sits at the intersection of structure and story — taking messy, disconnected data and shaping it into dashboards that decision-makers can actually read at a glance.</p>
+        <p>Currently seeking remote <strong>Data Analyst</strong> and <strong>BI Analyst</strong> roles where rigorous analysis meets real business impact.</p>
       </div>
-      <div class="about-cards">
-        <div class="about-card"><div class="icon">📊</div><h4>Dashboard Development</h4><p>Building interactive Power BI dashboards with KPI cards, slicers, and DAX measures</p></div>
-        <div class="about-card"><div class="icon">🧹</div><h4>Data Cleaning & Analysis</h4><p>Transforming raw data using Excel, Power Query, and SQL into analysis-ready datasets</p></div>
-        <div class="about-card"><div class="icon">🗄️</div><h4>SQL Querying</h4><p>Writing joins, subqueries, and aggregations to extract business insights from databases</p></div>
-        <div class="about-card"><div class="icon">🌐</div><h4>Remote Ready</h4><p>Available for full-time remote work across US, UK, EU, and GCC time zones</p></div>
+      <div class="ledger">
+        <div class="ledger-row"><span class="k">LOCATION</span><span class="v">Faisalabad, Pakistan</span></div>
+        <div class="ledger-row"><span class="k">FOCUS</span><span class="v">Business Intelligence</span></div>
+        <div class="ledger-row"><span class="k">TOOLS</span><span class="v">Power BI · SQL · Excel</span></div>
+        <div class="ledger-row"><span class="k">AVAILABILITY</span><span class="v">Remote · Full-time</span></div>
+        <div class="ledger-row"><span class="k">STATUS</span><span class="v" style="color:var(--gold-soft)">Open to Work</span></div>
       </div>
     </div>
   </div>
@@ -213,33 +237,34 @@
 
 <section id="skills">
   <div class="container">
-    <div class="section-eyebrow">Technical Skills</div>
-    <div class="section-title">Tools & Technologies</div>
-    <div class="section-sub">Core tools I use to analyze data, build dashboards, and deliver business insights.</div>
+    <div class="section-head">
+      <div class="eyebrow">02 — CAPABILITIES</div>
+      <h2 class="section-title">Tools of the trade</h2>
+    </div>
     <div class="skills-grid">
       <div class="skill-card">
-        <div class="icon">📊</div>
+        <div class="skill-num">01</div>
         <h4>Power BI</h4>
-        <div class="desc">Dashboard creation and business reporting</div>
-        <div class="tag-row"><span class="tag">DAX</span><span class="tag">KPI Cards</span><span class="tag">Slicers</span><span class="tag">Data Model</span></div>
+        <div class="desc">Interactive dashboards and business reporting</div>
+        <div class="tag-row"><span class="tag">DAX</span><span class="tag">KPI Cards</span><span class="tag">Slicers</span></div>
       </div>
       <div class="skill-card">
-        <div class="icon">📗</div>
-        <h4>Microsoft Excel</h4>
-        <div class="desc">Data cleaning and analysis</div>
-        <div class="tag-row"><span class="tag">Pivot Tables</span><span class="tag">VLOOKUP</span><span class="tag">Charts</span><span class="tag">Power Query</span></div>
+        <div class="skill-num">02</div>
+        <h4>Excel</h4>
+        <div class="desc">Data cleaning, modeling, and reporting</div>
+        <div class="tag-row"><span class="tag">Pivot Tables</span><span class="tag">VLOOKUP</span><span class="tag">Power Query</span></div>
       </div>
       <div class="skill-card">
-        <div class="icon">🗄️</div>
+        <div class="skill-num">03</div>
         <h4>SQL / MySQL</h4>
-        <div class="desc">Data extraction and analysis</div>
-        <div class="tag-row"><span class="tag">Joins</span><span class="tag">GROUP BY</span><span class="tag">Subqueries</span><span class="tag">Aggregations</span></div>
+        <div class="desc">Querying and structured data extraction</div>
+        <div class="tag-row"><span class="tag">Joins</span><span class="tag">GROUP BY</span><span class="tag">Subqueries</span></div>
       </div>
       <div class="skill-card">
-        <div class="icon">🐍</div>
+        <div class="skill-num">04</div>
         <h4>Python</h4>
-        <div class="desc">Data manipulation and analysis</div>
-        <div class="tag-row"><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span></div>
+        <div class="desc">Data wrangling and analysis</div>
+        <div class="tag-row"><span class="tag">Pandas</span><span class="tag">NumPy</span></div>
       </div>
     </div>
   </div>
@@ -247,31 +272,31 @@
 
 <section id="projects">
   <div class="container">
-    <div class="section-eyebrow">My Work</div>
-    <div class="section-title">Featured Projects</div>
-    <div class="section-sub">Real-world data analysis projects showcasing dashboards, data cleaning, and business insights.</div>
-    <div class="project-grid">
+    <div class="section-head">
+      <div class="eyebrow">03 — SELECTED WORK</div>
+      <h2 class="section-title">Featured projects</h2>
+      <p class="section-sub">Real dashboards built with real data — from e-commerce sales to 26 years of NVIDIA stock history.</p>
+    </div>
+    <div class="project-list">
 
-      <div class="project-card">
-        <div class="project-thumb"><img src="https://raw.githubusercontent.com/humairdata7/PowerBI-Sales-Dashboard/main/dashboard.gif" alt="E-commerce Sales Performance Dashboard"></div>
-        <div class="project-body">
-          <div class="project-tags"><span>Power BI</span><span>DAX</span><span>Excel</span></div>
+      <div class="project-row">
+        <div class="project-index">01</div>
+        <div>
           <h3>E-commerce Sales Performance Dashboard</h3>
-          <p class="project-desc">Analyzed e-commerce sales data to track 1M+ total sales, order status, payment methods, and regional performance across major Pakistani cities.</p>
-          <div class="project-stat">📈 Total Sales: 1M · 3 cities · 5 product categories analyzed</div>
-          <a class="project-link" href="https://github.com/humairdata7/PowerBI-Sales-Dashboard">GitHub →</a>
+          <p class="project-desc">Multi-page Power BI dashboard tracking 1M+ in sales across cities, product categories, and payment methods — with drill-through reporting for stakeholders.</p>
+          <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>EXCEL</span></div>
         </div>
+        <a href="https://github.com/humairdata7/PowerBI-Sales-Dashboard" class="project-link">VIEW REPO →</a>
       </div>
 
-      <div class="project-card">
-        <div class="project-thumb">📈</div>
-        <div class="project-body">
-          <div class="project-tags"><span>Power BI</span><span>DAX</span><span>Data Analysis</span></div>
+      <div class="project-row">
+        <div class="project-index">02</div>
+        <div>
           <h3>NVIDIA Stock Performance Analysis (1999–2026)</h3>
-          <p class="project-desc">Multi-page Power BI dashboard analyzing 26 years of NVIDIA stock data — price trends, market cap growth, quarterly revenue by era, and RSI momentum indicators.</p>
-          <div class="project-stat">📊 7,079 trading days · 5 business eras · $507.71B peak market cap</div>
-          <a class="project-link" href="https://github.com/humairdata7/NVIDIA-Stock-Dashboard">GitHub →</a>
+          <p class="project-desc">26 years of NVIDIA stock history analyzed — price trends, market cap growth, quarterly revenue by business era, and RSI momentum across the AI boom.</p>
+          <div class="project-meta"><span>POWER BI</span><span>DAX</span><span>DATA ANALYSIS</span></div>
         </div>
+        <a href="https://github.com/humairdata7/NVIDIA-Stock-Dashboard" class="project-link">VIEW REPO →</a>
       </div>
 
     </div>
@@ -280,14 +305,15 @@
 
 <section id="education">
   <div class="container">
-    <div class="section-eyebrow">Education</div>
-    <div class="section-title">Academic Background</div>
-    <div class="edu-card">
-      <div class="edu-icon">🎓</div>
+    <div class="section-head">
+      <div class="eyebrow">04 — EDUCATION</div>
+      <h2 class="section-title">Academic background</h2>
+    </div>
+    <div class="edu-row">
+      <div class="edu-year">2022–2026</div>
       <div>
         <h3>Bachelor of Software Engineering</h3>
         <p>Riphah International University, Faisalabad</p>
-        <p>Graduated January 2026</p>
       </div>
     </div>
   </div>
@@ -295,35 +321,18 @@
 
 <section id="contact">
   <div class="container">
-    <div class="section-eyebrow">Get In Touch</div>
-    <div class="section-title">Open to Opportunities</div>
-    <div class="section-sub" style="margin: 0 auto;">Looking for remote Data Analyst, BI Analyst, and Reporting Analyst roles. Let's connect!</div>
+    <div class="eyebrow">05 — CONTACT</div>
+    <h2 class="section-title">Let's work together</h2>
+    <p class="section-sub" style="margin: 14px auto 0;">Open to remote Data Analyst and BI Analyst roles, worldwide.</p>
+    <a href="mailto:humairrajput2400@gmail.com" class="contact-email">humairrajput2400@gmail.com</a>
     <div class="contact-links">
-      <a href="mailto:humairrajput2400@gmail.com" class="btn btn-primary">✉️ Email Me</a>
-      <a href="https://github.com/humairdata7" class="btn btn-secondary">GitHub</a>
-      <a href="https://www.linkedin.com/in/humair12/" class="btn btn-secondary">LinkedIn</a>
+      <a href="https://github.com/humairdata7" class="btn btn-outline">GitHub</a>
+      <a href="https://www.linkedin.com/in/humair12/" class="btn btn-outline">LinkedIn</a>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Muhammad Humair · Data Analyst · Faisalabad, Pakistan</footer>
-
-<script>
-  const toggle = document.getElementById('themeToggle');
-  const body = document.body;
-  const saved = localStorage.getItem('theme');
-  if (saved) {
-    body.setAttribute('data-theme', saved);
-    toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
-  }
-  toggle.addEventListener('click', () => {
-    const current = body.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    body.setAttribute('data-theme', next);
-    toggle.textContent = next === 'dark' ? '☀️' : '🌙';
-    localStorage.setItem('theme', next);
-  });
-</script>
+<footer>© 2026 MUHAMMAD HUMAIR — DATA ANALYST — FAISALABAD, PAKISTAN</footer>
 
 </body>
 </html>
